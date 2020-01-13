@@ -10,7 +10,7 @@ class Nemovitost {
 }
 
 class Building extends Nemovitost {
-    public static ArrayList<Building> Buildings = new ArrayList<>();
+    public static   ArrayList<Building> Buildings = new ArrayList<>();
 
     public int getBuildingPosition() {
         return position;

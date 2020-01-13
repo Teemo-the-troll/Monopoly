@@ -1,49 +1,57 @@
 package app;
 
-import java.util.Scanner;
+
+import java.util.ArrayList;
+
+
 
 /**
  * Game
  */
 public class Game {
+       static ArrayList position = new ArrayList<>();
+       public static final String ANSI_RED = "\u001B[31m";
+       public static final String ANSI_RESET = "\u001B[0m";
 
        public static void drawUi() {
               System.out.println(
-                            ".s:::::::::::::s/:::::::::::++:::::::::::::s:::::::::::/s:::::::::::::s::::::::::::::/s:::::::::::::- \n"
-                                          + "./             /`           --             +            +             +             `/             :- \n"
-                                          + "./             /`           --             +            +             +             `/             :- \n"
-                                          + "./             /`           --             +            +             +             `/             :- \n"
-                                          + "./             /`           --             +            +             +             `/             :- \n"
-                                          + "`o-------------y:-----------::-------------:------------:-------------:-------------:o-----------+--- \n"
-                                          + "`/             s`                                                                   `/             :- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`/             s`                                                                   `/             :- \n"
-                                          + "`/             s`                                                                   `/             :- \n"
-                                          + "`s:::::::::::::o                                                                    `o-------------+- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`s:::::::::::::s`                                                                   `o-------------+- \n"
-                                          + "`/             s`                                                                   `/             :- \n"
-                                          + "`/             s`                                                                   `/             :- \n"
-                                          + "`/             s`                                                                   `/             :- \n"
-                                          + ".o:::::::::::::y`                                                                   `o-------+------- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`+             /`                                                                   `/             :- \n"
-                                          + "`/             o`                                                                   `/             :- \n"
-                                          + "`/             o`                                                                   `/             :- \n"
-                                          + "`o-------------s`                                                                   `o--------------+. \n"
-                                          + "`/             /`                                                                   `+             :- \n"
-                                          + "`/             /`                                                                   `/             :- \n"
-                                          + "`/             /`                                                                   `/             :- \n"
-                                          + "`s-------------o:----------::-------------+-------------+--------------+------------:o----------------+- \n"
-                                          + "`+             /`          --             +             +              +            `/             :- \n"
-                                          + "`+             /`          --             +             +              +            `/             :- \n"
-                                          + "`+             /`          --             +             +              +            `/             :- \n"
-                                          + "`s.............o-..........//............-o.............o..............o................-o----------+ \n"
-                                          + "````````````````````````````````````````````````````````````````````````````````````````````````````` \n");
+                                            ".s::::::::::::::::s/:::::::::::::::++:::::::::::::s:::::::::::::::/s:::::::::::::s:::::::::::::::::/s:::::::::::::::::::::::/s:- \n"
+                                          + "./  rytirska ul.   /` ovocny trh   --  na prikope +  parizska ul. + celetna ul.  + nam. republiky  `/    hradcanska ul      :- \n"
+                                          + "./      " + position.get(12) + "       /`   " + position.get(13) + "       --  " + position.get(14) + "       +   " + position.get(15) + "        +  " + position.get(16) + "        +    " + position.get(17) + "         `/      " + position.get(18) + "             :- \n"
+                                          + "./                /`               --             +               +              +                 `/                       :- \n"
+                                          + "./       " + GetInfo.getBuildingByPosition(12).owner + "         /`   " + GetInfo.getBuildingByPosition(13).owner + "          --   " + GetInfo.getBuildingByPosition(14).owner + "         +   " + GetInfo.getBuildingByPosition(15).owner + "           +   " + GetInfo.getBuildingByPosition(16).owner + "          +        " + GetInfo.getBuildingByPosition(17).owner + "        `/       " + GetInfo.getBuildingByPosition(18).owner + "               :- \n"
+                                          + "`o-----------------y:--------------::-------------:---------------:--------------:------------------:o-----------+------------ \n"
+                                          + "`/ vodickova ul.   s`                                                                              `/    malostranske nam   :- \n"
+                                          + "`+      " + position.get(11) + "       /`                                                                              `/       " + position.get(19) + "            :- \n"
+                                          + "`+                 /`                                                                              `/                       :- \n"
+                                          + "`/      " + GetInfo.getBuildingByPosition(11).owner + "          s`                                                                              `/       " + GetInfo.getBuildingByPosition(19).owner + "               :- \n"
+                                          + "`s:::::::::::::::::o                                                                              `o------------------------+- \n"
+                                          + "`+ jungmannova ul. /`                                                                              `/         kampa         :- \n"
+                                          + "`+       " + position.get(10) + "      /`                                                                              `/        " + position.get(20) + "           :- \n"
+                                          + "`+                 /`                 player 1                              player 2               `/                       :- \n"
+                                          + "`+       " + GetInfo.getBuildingByPosition(10).owner + "          /`          amount of credits: " + GetInfo.amountOfMoneyOwned(Player.allPlayers.get(1)) + "               amount of credits: "+ GetInfo.amountOfMoneyOwned(Player.allPlayers.get(2)) +"      `/       " + GetInfo.getBuildingByPosition(20).owner + "               :- \n"
+                                          + "`s:::::::::::::::::s`                                                                              `o-----------------------+- \n"
+                                          + "`/ narodni trida   s`                         active player:                                       `/     karlova ulice     :- \n"
+                                          + "`/      " + position.get(9) + "       s`                                                                              `/          " + position.get(21) + "         :- \n"
+                                          + "`/                 s`                                                                              `/                       :- \n"
+                                          + "`/    " + GetInfo.getBuildingByPosition(9).owner + "            s`                                                                              `/    " + GetInfo.getBuildingByPosition(21).owner + "                  :- \n"
+                                          + ".o:::::::::::::::::y`                                                                              `o-------+----------------- \n"
+                                          + "`+ smetanovo nabr. /`                                                                              `/    staromestske nam.  :- \n"
+                                          + "`+    " + position.get(8) + "         /`                                                                              `/          " + position.get(22) + "         :- \n"
+                                          + "`/                 o`                                                                              `/                       :- \n"
+                                          + "`/      " + GetInfo.getBuildingByPosition(8).owner + "          o`                                                                              `/          " + GetInfo.getBuildingByPosition(22).owner + "            :- \n"
+                                          + "`o-----------------s`                                                                              `o-----------------------+. \n"
+                                          + "`/ masarykovo nabr./`                                                                              `+     vaclavske nam.    :- \n"
+                                          + "`/     " + position.get(7) + "        /`                                                                              `/          " + position.get(23) + "         :- \n"
+                                          + "`/                 /`                                                                              `/                       :- \n"
+                                          + "`/      " + GetInfo.getBuildingByPosition(7).owner + "          /`                                                                              `/          " + GetInfo.getBuildingByPosition(23).owner + "            :- \n"
+                                          + "`s-----------------o:-----------------::----------------+-------------+---------------+------------------:o-----------------+- \n"
+                                          + "`+ rasinovo nabr.  /` vinohradska ul. -- jindrisska ul. +  panska ul. + revolucni ul. + Klimentská ulice `/      Start!    :- \n"
+                                          + "`+      " + position.get(6) + "       /`    " + position.get(5) + "         --    " + position.get(4) + "        +  " + position.get(3) + "       +   " + position.get(2) + "        +     " + position.get(1) + "         `/     " + position.get(0) + "       :- \n"
+                                          + "`+                 /`                 --                +             +               +                  `/    get 200!    :- \n"
+                                          + "`+        " + GetInfo.getBuildingByPosition(6).owner + "        /`        " + GetInfo.getBuildingByPosition(5).owner + "        --        " + GetInfo.getBuildingByPosition(4).owner + "       +       " + GetInfo.getBuildingByPosition(3).owner +  "     +       " + GetInfo.getBuildingByPosition(2).owner + "       +         " + GetInfo.getBuildingByPosition(1).owner + "        `/                :- \n"
+                                          + "`s.................o-.................//...............-o.............o...............o..................-o-----------------+ \n"
+                                          + "```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````` \n");
        }
 
        public static void initializeData() {
@@ -72,34 +80,43 @@ public class Game {
               Building buld21 = new Building(21, 290, 47, "zluta", 0);
               Building buld22 = new Building(22, 300, 50, "zlata", 0);
               Building buld23 = new Building(23, 320, 53, "zlata", 0);
+              
+              for (int i = 0; i < 24; i++) {
+                     position.add("    ");
+              }
+              
+
        }
 
        public static void wait(int miliseconds) throws InterruptedException {
               Thread.sleep(miliseconds);
        }
 
-       public static void playerSteppedOnTile() {
+       public static void playerSteppedOnTile() throws InterruptedException {
               int position = GetInfo.getPlayerOnTurn().position;
               int rent = GetInfo.getBuildingByPosition(position).rent;
-              Scanner sc = new Scanner(System.in);
+              
 
-              if (GetInfo.getBuildingByPosition(position).owner == 0) {
+              if (GetInfo.getBuildingByPosition(position).owner == 0) { //if the owner is the bank
                      Logic.buyBuilding(GetInfo.getBuildingByPosition(position));
 
-              } else if (GetInfo.getBuildingByPosition(position).owner != GetInfo.getPlayerOnTurn().id) {
-                    System.out.println("This property is owned by you! You can procrastinate this turn!");
-                    String waste = sc.nextLine();
+              } else if (GetInfo.getBuildingByPosition(position).owner == GetInfo.getPlayerOnTurn().id) { //if owner is the active player
+                     System.out.println("This property is owned by you! You can procrastinate this turn!");
+                     String waste = Logic.sc.nextLine();
                      Logic.endTurn();
-              } else {
+
+              } else { // if there is another owner
                      Logic.payRent(position, rent);
-                     
+
               }
        }
 
        public static void main(String[] args) {
 
               try {
+                     drawUi();
                      Logic.movePlayer(); // posunuti hrace
+                     drawUi();
                      wait(1000);
                      playerSteppedOnTile(); // hrac slapl na policko
               } catch (Exception e) {

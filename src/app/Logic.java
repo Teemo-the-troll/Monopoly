@@ -18,19 +18,20 @@ public class Logic {
         return wasThrown;
     }
 
-    public static void endTurn() {
+    public static void endTurn() throws InterruptedException {
         changeActivePlayer();
+        Game.wait(1000);
         Game.main(null);
     }
 
-    public static void payRent(int position, int rent) {
+    public static void payRent(int position, int rent) throws InterruptedException {
         System.out.println("You stepped onto another playes's property! Pay up! Confirm by hitting enter");
 
         String waste = sc.nextLine();
 
-                     Logic.transferMoney(GetInfo.getPlayerOnTurn().id, GetInfo.getBuildingByPosition(position).owner, rent);
-                     System.out.println("Okay, funds transfered, next player!");
-                     Logic.endTurn();
+        Logic.transferMoney(GetInfo.getPlayerOnTurn().id, GetInfo.getBuildingByPosition(position).owner, rent);
+        System.out.println("Okay, funds transfered, next player!");
+        Logic.endTurn();
     }
 
     public static void movePlayer() {
@@ -39,16 +40,36 @@ public class Logic {
         if ((GetInfo.getPlayerOnTurn().position + amount) <= 23) {
             System.out.println("hrac byl na pozici:" + GetInfo.getPlayerOnTurn().position);
             GetInfo.getPlayerOnTurn().position = GetInfo.getPlayerOnTurn().position + amount;
+            moveFigurine(GetInfo.getPlayerOnTurn().position, amount, false);
 
             System.out.println("hrac je ted na pozici: " + GetInfo.getPlayerOnTurn().position);
         } else {
             GetInfo.getPlayerOnTurn().position = GetInfo.getPlayerOnTurn().position - 23 + amount;
             GetInfo.getPlayerOnTurn().moneyOwned = GetInfo.getPlayerOnTurn().moneyOwned + 200;
             System.out.println("You went trough start! 200 credits have been added to your account!");
+            moveFigurine(GetInfo.getPlayerOnTurn().position, amount, true);
         }
     }
 
-    public static void buyBuilding(Building buyable) {
+    public static void moveFigurine(int position, int wasThrown, boolean wentTroughStart) {
+        if (GetInfo.getPlayerOnTurn().id == 1) {
+            Game.position.set(position, Game.ANSI_RED + "pl 1" + Game.ANSI_RESET);
+
+        } else {
+            Game.position.set(position, Game.ANSI_RED + "pl 2" + Game.ANSI_RESET);
+        }
+
+
+        if (wentTroughStart) {
+            Game.position.set(23 + position - wasThrown, "    ");
+
+        } else {
+            Game.position.set(position - wasThrown, "    ");
+        }
+
+    }
+
+    public static void buyBuilding(Building buyable) throws InterruptedException {
         System.out.println("This building isn't owned by anyone! Do you wish to buy it for " + buyable.cost + "?");
         GetInfo.getAllInfoBuilding(buyable);
         System.out.println("You have " + GetInfo.getPlayerOnTurn().moneyOwned + " credits.");

@@ -3,7 +3,7 @@ package app;
 import java.util.ArrayList;
 
 public class Player {
-    public static ArrayList<Player> allPlayers = new ArrayList<>();
+    public static   ArrayList<Player> allPlayers = new ArrayList<>();
     int position = 0;
     int moneyOwned = 1500;
     boolean isOnturn;

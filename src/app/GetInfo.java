@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class GetInfo {
     
-    public static void getAllInfoBuilding( Building x) {
+    public static   void getAllInfoBuilding( Building x) {
         System.out.println("The rent is: " + x.rent + " credits");
         System.out.println("The color of this building is: "+x.color);
        
@@ -17,7 +17,7 @@ public class GetInfo {
     }
 
 
-    public static Building getBuildingByPosition(int pos) {
+    public static   Building getBuildingByPosition(int pos) {
         
         List<Building> all = Building.Buildings
             .stream()
@@ -26,15 +26,15 @@ public class GetInfo {
         return all.get(0);
     }
 
-    public static void setOwner(Building x) {
+    public   void setOwner(Building x) {
         x.owner = getPlayerOnTurn().id;
     }
 
-    public static int getOwner(Building x) {
+    public   int getOwner(Building x) {
         return x.owner;
     }
 
-    public static Player getPlayerOnTurn() {
+    public static   Player getPlayerOnTurn() {
         List<Player> all = Player.allPlayers
         .stream()
         .filter(x -> x.isOnturn == false)
@@ -42,7 +42,7 @@ public class GetInfo {
         return all.get(0);
     }
 
-    public static int amountOfMoneyOwned(final Player evaluatedPlayer) {
+    public static   int amountOfMoneyOwned(final Player evaluatedPlayer) {
         return evaluatedPlayer.moneyOwned;
     }
 
@@ -52,7 +52,7 @@ public class GetInfo {
      * @param idToFind
      * @return Player
      */
-    public static Player getPlayerById(final int idToFind) {
+    public static   Player getPlayerById(final int idToFind) {
         final List<Player> all = Player.allPlayers
         .stream()
         .filter(x -> x.id == idToFind)
